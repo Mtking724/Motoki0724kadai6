@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     //UISliderをoutlet接続
     @IBOutlet private weak var slider: UISlider!
     //乱数を生成して1から100の数字を表示する
-    var randomNum = Int.random(in: 1...100)
+    private var randomNum = Int.random(in: 1...100)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,20 +30,22 @@ class ViewController: UIViewController {
     //ツマミの位置によって処理を分岐させる
     private func jugdementAlert() {
         let sliderValue = Int(slider.value)
-        let number = Int(label.text!)
-        
-        if sliderValue == Int(number!) {
-            presentAlert(message: "あたり！\n あなたの値: \(sliderValue)")
-            reset()
+
+        let firstLine: String
+
+        if sliderValue == randomNum {
+            firstLine = "あたり！"
         } else {
-            presentAlert(message: "はずれ！\n あなたの値: \(sliderValue)")
-            reset()
+            firstLine = "はずれ！"
         }
+
+        presentAlert(message: "\(firstLine)\n あなたの値: \(sliderValue)")
+        reset()
     }
     
     //ボタンを押した時に乱数を再生成する処理を作成
     private func reset() {
-        let randomNum = Int.random(in: 1...100)
+        randomNum = Int.random(in: 1...100)
         slider.value = 50
         label.text = String(randomNum)
     }
